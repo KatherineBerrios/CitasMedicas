@@ -19,11 +19,11 @@ console.log(_.partition(numeros, (n) => n % 2));
 
 // Instancia axios
 // Datos de los usuarios consultados desde la API Random User
- axios
-   .get("https://randomuser.me/api/?results=12", { responseType: "json" })
-   .then((response) => {
-     response.data.results.forEach((element) => {
-      const usuarios = (`Nombre: ${element.name.first} - Apellido: ${element.name.last} - ID: ${uuidv4().slice(30)}- Timestamp: ${moment()}`);
+axios
+  .get("https://randomuser.me/api/?results=12")
+  .then((response) => {
+    response.data.results.forEach((element) => {
+      const usuarios = (`Nombre: ${element.name.first} - Apellido: ${element.name.last} - ID: ${uuidv4().slice(30)} - Timestamp: ${moment()}`);
       console.log(
         // Mostrar los datos por consola en color azul y fondo blanco
         chalk.blue.bgWhite.bold(usuarios)
