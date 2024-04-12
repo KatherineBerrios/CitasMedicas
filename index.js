@@ -8,11 +8,8 @@ import axios from "axios";
 // Arreglo de usuarios
 const usuarios = [];
 
-// Generando un identificador único
-  uuidv4();
-
-// Generando la fecha de registro
-moment().format("MMMM Do YYYY, h:mm:ss a");
+// Comando para generar una fecha de registro con la fecha actual
+// moment().format("MMMM Do YYYY, h:mm:ss a");
 
 // Instancia axios
 // Datos de los usuarios consultados desde la API Random User
@@ -22,19 +19,23 @@ axios
     response.data.results.forEach((element) => {
       const name = element.name.first;
       const surname = element.name.last;
-      const id = element.login.uuid.slice(30);
-      const timestamp = element.registered.date;
+
+      // Genera un identificador único aleatorio que muestra los últimos 6 dígitos
+      const id = uuidv4().slice(30); // Si se quiere usar el uuid proporcionado por la API, utilizar element.login.uuid.slice(30)
+      // Formateando la fecha de registro en la API
+      const timestamp = moment(element.registered.date).format("MMMM Do YYYY, h:mm:ss a");
       const gender = element.gender;
-      const usuario = {"Nombre": name, "Apellido": surname, "ID": id, "Timestamp": timestamp, "Genero": gender};
+
+      const usuario = {Nombre: name, Apellido: surname, ID: id, Timestamp: timestamp, Genero: gender,};
 
       usuarios.push(usuario);
-      });
+    });
 
       console.log(
         // Mostrar los datos por consola en color azul y fondo blanco
         chalk.blue.bgWhite.bold(
           JSON.stringify(
-            //Método partition para mostrar usuarios de género masculino y fememnino por separado
+            //Método partition para mostrar usuarios de género masculino y fememnino en arreglos por separado
             _.partition(usuarios, ["Genero", "female"])
           )
         )
